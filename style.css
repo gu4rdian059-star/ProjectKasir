@@ -375,3 +375,40 @@ hr {
         flex-direction: column;
     }
 }
+
+/* ===== MODAL STRUK & PRINT STYLE ===== */
+.modal-struk-box {
+    max-width: 380px !important;
+    width: 90% !important;
+    max-height: 85vh;
+    overflow-y: auto;
+    text-align: left;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #modalStruk, #modalStruk * {
+        visibility: visible;
+    }
+    #modalStruk {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        background: none;
+        display: block !important;
+    }
+    .modal-struk-box {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .modal-struk-buttons {
+        display: none !important;
+    }
+}

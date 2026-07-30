@@ -230,84 +230,62 @@ function cetakStruk() {
     ).join("");
 
     let struk = `
-    <html>
-    <head><title>Struk</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; max-width: 350px; margin: 20px auto; color: #333; font-size: 13px; }
-        h2 { text-align: center; margin-bottom: 5px; font-size: 18px; }
-        .sub { text-align: center; color: #888; font-size: 12px; margin-bottom: 15px; }
-        .info { border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc; padding: 10px 0; margin-bottom: 10px; }
-        .info p { margin: 3px 0; font-size: 12px; }
-        .info span { color: #888; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-        th { font-size: 11px; color: #888; text-align: left; padding: 5px 0; border-bottom: 1px solid #ddd; }
-        th:nth-child(2) { text-align: center; }
-        th:nth-child(3), th:nth-child(4) { text-align: right; }
-        td { padding: 4px 0; font-size: 12px; }
-        .summary { border-top: 1px dashed #ccc; padding-top: 10px; }
-        .summary p { display: flex; justify-content: space-between; margin: 3px 0; font-size: 13px; }
-        .summary .total { font-size: 16px; font-weight: bold; border-top: 1px solid #333; padding-top: 8px; margin-top: 8px; }
-        .pembayaran { border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px; text-align: center; font-size: 13px; }
-        .pembayaran strong { font-size: 14px; }
-        .footer { text-align: center; margin-top: 15px; color: #888; font-size: 11px; }
-        .footer .thanks { font-size: 14px; font-weight: 600; color: #333; margin-top: 5px; }
-        @media print { body { margin: 0; } }
-    </style>
-    </head>
-    <body>
-    <script>
-        window.onload = function() {
-            window.print();
-        };
-    </script>
-        <h2>🛒 HIHI SHOP</h2>
-        <p style="text-align:center; font-size:10px; margin-top:-5px; margin-bottom:10px; color:#666;">Jl. Raya Magersari No 40 Kabupaten Pasuruan JAWA TIMUR</p>
-        <div class="sub">Struk Pembayaran</div>
+        <div class="struk-wrapper">
+            <h2 style="text-align: center; margin-bottom: 5px; font-size: 18px;">🛒 HIHI SHOP</h2>
+            <p style="text-align:center; font-size:10px; margin-top:-5px; margin-bottom:10px; color:#666;">Jl. Raya Magersari No 40 Kabupaten Pasuruan JAWA TIMUR</p>
+            <div style="text-align: center; color: #888; font-size: 12px; margin-bottom: 15px;">Struk Pembayaran</div>
 
-        <div class="info">
-            <p><span>No. Transaksi:</span> ${noTrx}</p>
-            <p><span>Kasir:</span> ${namaKasir}</p>
-            <p><span>Tanggal:</span> ${tanggal}</p>
-            <p><span>Waktu:</span> ${waktu}</p>
-        </div>
-
-        <table>
-            <thead>
-                <tr><th>Barang</th><th>Qty(P)</th><th>Harga/P</th><th>Subtotal</th></tr>
-            </thead>
-            <tbody>${items}</tbody>
-        </table>
-
-        <div class="summary">
-            <p><span>Subtotal</span><span>${rupiah(total)}</span></p>
-            <p><span>Diskon (10%)</span><span>- ${rupiah(diskon)}</span></p>
-            <p><span>PPN (11%)</span><span>+ ${rupiah(ppn)}</span></p>
-            <p class="total"><span>Total Bayar</span><span>${rupiah(totalAkhir)}</span></p>
-            ${metodeBayar === 'Tunai' ? `
-                <p><span>Bayar</span><span>${rupiah(bayar)}</span></p>
-                <p><span>Kembalian</span><span>${rupiah(kembalian > 0 ? kembalian : 0)}</span></p>
-            ` : ''}
-        </div>
-
-        <div class="pembayaran">
-            Metode Pembayaran: <strong>${metodeBayar}</strong>
-            ${metodeBayar === 'QRIS' ? '<br><img src="qris.png" style="width:100px; height:100px; margin-top:10px; border:1px solid #ddd;">' : ''}
-        </div>
-
-        <div class="footer">
-            <p>Barang yang sudah dibeli tidak dapat dikembalikan.</p>
-            <div class="thanks">Terima Kasih!</div>
-            <div style="margin-top:10px;">
-                <img src="qris.png" style="width:50px; height:50px; opacity:0.5;">
-                <p style="font-size:9px; color:#aaa;">Scan untuk bukti transaksi digital</p>
+            <div style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc; padding: 10px 0; margin-bottom: 10px; font-size: 12px;">
+                <p style="margin: 3px 0;"><span style="color: #888;">No. Transaksi:</span> ${noTrx}</p>
+                <p style="margin: 3px 0;"><span style="color: #888;">Kasir:</span> ${namaKasir}</p>
+                <p style="margin: 3px 0;"><span style="color: #888;">Tanggal:</span> ${tanggal}</p>
+                <p style="margin: 3px 0;"><span style="color: #888;">Waktu:</span> ${waktu}</p>
             </div>
-        </div>
-    </body>
-    </html>`;
 
-    let win = window.open("", "_blank", "width=400,height=600");
-    win.document.write(struk);
-    win.document.close();
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 12px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #ddd; font-size: 11px; color: #888;">
+                        <th style="text-align: left; padding: 5px 0;">Barang</th>
+                        <th style="text-align: center; padding: 5px 0;">Qty(P)</th>
+                        <th style="text-align: right; padding: 5px 0;">Harga/P</th>
+                        <th style="text-align: right; padding: 5px 0;">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>${items}</tbody>
+            </table>
+
+            <div style="border-top: 1px dashed #ccc; padding-top: 10px; font-size: 13px;">
+                <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Subtotal</span><span>${rupiah(total)}</span></p>
+                <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Diskon (10%)</span><span>- ${rupiah(diskon)}</span></p>
+                <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>PPN (11%)</span><span>+ ${rupiah(ppn)}</span></p>
+                <p style="display: flex; justify-content: space-between; margin: 8px 0 3px 0; font-size: 16px; font-weight: bold; border-top: 1px solid #333; padding-top: 8px;"><span>Total Bayar</span><span>${rupiah(totalAkhir)}</span></p>
+                ${metodeBayar === 'Tunai' ? `
+                    <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Bayar</span><span>${rupiah(bayar)}</span></p>
+                    <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Kembalian</span><span>${rupiah(kembalian > 0 ? kembalian : 0)}</span></p>
+                ` : ''}
+            </div>
+
+            <div style="border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px; text-align: center; font-size: 13px;">
+                Metode Pembayaran: <strong>${metodeBayar}</strong>
+                ${metodeBayar === 'QRIS' ? '<br><img src="qris.png" style="width:100px; height:100px; margin-top:10px; border:1px solid #ddd;">' : ''}
+            </div>
+
+            <div style="text-align: center; margin-top: 15px; color: #888; font-size: 11px;">
+                <p>Barang yang sudah dibeli tidak dapat dikembalikan.</p>
+                <div style="font-size: 14px; font-weight: 600; color: #333; margin-top: 5px;">Terima Kasih!</div>
+                <div style="margin-top: 10px;">
+                    <img src="qris.png" style="width:50px; height:50px; opacity:0.5;">
+                    <p style="font-size: 9px; color: #aaa;">Scan untuk bukti transaksi digital</p>
+                </div>
+            </div>
+        </div>`;
+
+    document.getElementById("strukPrintArea").innerHTML = struk;
+    document.getElementById("modalStruk").classList.remove("hidden");
+}
+
+function tutupStruk() {
+    document.getElementById("modalStruk").classList.add("hidden");
 }
 
 // INIT
