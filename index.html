@@ -3,160 +3,310 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kasir Sederhana</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIHI SHOP - Kasir Modern</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
+    
     <!-- MODAL NAMA KASIR -->
     <div class="modal" id="modalKasir">
         <div class="modal-box">
-            <h2>Pilih Kasir</h2>
-            <button onclick="mulaiSesi('Ferdy')">Ferdy</button>
-            <button onclick="mulaiSesi('Asep')">Asep</button>
+            <div class="modal-header">
+                <i class="fa-solid fa-user-gear modal-icon"></i>
+                <h2>Pilih Kasir Sesi Ini</h2>
+                <p>Silakan pilih akun kasir yang bertugas</p>
+            </div>
+            <div class="kasir-grid">
+                <button class="btn-kasir" onclick="mulaiSesi('Ferdy')">
+                    <div class="avatar"><i class="fa-solid fa-user-astronaut"></i></div>
+                    <span>Ferdy</span>
+                </button>
+                <button class="btn-kasir" onclick="mulaiSesi('Asep')">
+                    <div class="avatar"><i class="fa-solid fa-user-ninja"></i></div>
+                    <span>Asep</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <h1>🛒 HIHI SHOP</h1>
-        <p class="info-kasir">Kasir: <strong id="namaKasirDisplay">-</strong> | Waktu: <strong
-                id="jamDisplay">00:00:00</strong></p>
-
-        <!-- PILIH BARANG -->
-        <div class="card">
-            <h3>Tambah Barang</h3>
-            <label>Pilih Barang:</label>
-            <select id="selectBarang">
-                <option value="">-- Pilih Barang --</option>
-            </select>
-
-            <label>Harga / Pack:</label>
-            <input type="text" id="hargaOtomatis" readonly placeholder="Otomatis">
-
-            <label>Jumlah (Pack):</label>
-            <select id="jumlah">
-                <option value="1">1</option>
-            </select>
-
-            <label>Estimasi:</label>
-            <input type="text" id="estimasiSubtotal" readonly placeholder="Rp 0">
-
-            <button id="btnTambah" onclick="tambahBarang()">+ Tambah</button>
-        </div>
-
-        <!-- TABEL -->
-        <div class="card">
-            <h3>Keranjang Belanja</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Harga / Pack</th>
-                        <th>Qty (Pack)</th>
-                        <th>Subtotal</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="list"></tbody>
-            </table>
-            <p id="kosong" style="color:#999; text-align:center; padding:10px;">Belum ada barang</p>
-        </div>
-
-        <!-- TOTAL -->
-        <div class="card">
-            <p>Subtotal: <strong id="subtotalText">Rp 0</strong></p>
-            <p>Diskon (10%): <strong id="diskonText">Rp 0</strong></p>
-            <p>PPN (11%): <strong id="ppnText">Rp 0</strong></p>
-            <hr>
-            <p class="total-besar">Total Bayar: <strong id="totalText">Rp 0</strong></p>
-            <small id="discountNote">*Diskon 10% untuk belanja di atas Rp 100.000</small>
-        </div>
-
-        <!-- METODE PEMBAYARAN -->
-        <div class="card">
-            <h3>Metode Pembayaran</h3>
-            <label class="radio-label">
-                <input type="radio" name="metodeBayar" value="Tunai" checked onchange="tampilDetailBayar()"> 💵 Tunai
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="metodeBayar" value="QRIS" onchange="tampilDetailBayar()"> 📱 QRIS
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="metodeBayar" value="Transfer Bank" onchange="tampilDetailBayar()"> 🏦 Transfer
-                Bank
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="metodeBayar" value="E-Wallet" onchange="tampilDetailBayar()"> 👛 E-Wallet
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="metodeBayar" value="Kartu Debit" onchange="tampilDetailBayar()"> 💳 Kartu
-                Debit
-            </label>
-
-            <!-- Detail: Tunai -->
-            <div class="detail-bayar" id="detailTunai">
-                <p>💵 Pembayaran langsung di kasir.</p>
-                <label style="margin-top:10px;">Uang Bayar:</label>
-                <input type="number" id="uangBayar" placeholder="0" oninput="hitungKembalian()">
-                <p style="margin-top:10px;">Kembalian: <strong id="kembalianText">Rp 0</strong></p>
-            </div>
-
-            <!-- Detail: QRIS -->
-            <div class="detail-bayar" id="detailQRIS" style="display:none;">
-                <p>Scan QR Code di bawah ini:</p>
-                <img src="qris.png" alt="QRIS" class="img-bayar">
-                <p><small>QRIS - Aplikasi-Ku Store</small></p>
-            </div>
-
-            <!-- Detail: Transfer Bank -->
-            <div class="detail-bayar" id="detailTransferBank" style="display:none;">
-                <p>Transfer ke rekening berikut:</p>
-                <div class="info-rekening">
-                    <p>🏦 <strong>Bank BCA</strong></p>
-                    <p>No. Rek: <strong>082-633-22</strong></p>
-                    <p>A/N: <strong>Ferdy Store</strong></p>
-                </div>
-                <div class="info-rekening">
-                    <p>🏦 <strong>Bank BRI</strong></p>
-                    <p>No. Rek: <strong>0912-0182-3344</strong></p>
-                    <p>A/N: <strong>Ferdy Store</strong></p>
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container">
+        <!-- HEADER APPS -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-store"></i></div>
+                <div>
+                    <h1>HIHI SHOP</h1>
+                    <span class="badge-status"><i class="fa-solid fa-circle"></i> Sistem POS Aktif</span>
                 </div>
             </div>
-
-            <!-- Detail: E-Wallet -->
-            <div class="detail-bayar" id="detailE-Wallet" style="display:none;">
-                <p>Pilih e-wallet:</p>
-                <div class="ewallet-list">
-                    <div class="ewallet-item" style="background:#00AA13; color:#fff;">
-                        <strong>GoPay</strong>
-                        <span>0812-3456-7890</span>
-                    </div>
-                    <div class="ewallet-item" style="background:#4C3494; color:#fff;">
-                        <strong>OVO</strong>
-                        <span>0812-3456-7890</span>
-                    </div>
-                    <div class="ewallet-item" style="background:#108EE9; color:#fff;">
-                        <strong>Dana</strong>
-                        <span>0812-3456-7890</span>
-                    </div>
-                    <div class="ewallet-item" style="background:#ED1C24; color:#fff;">
-                        <strong>ShopeePay</strong>
-                        <span>0812-3456-7890</span>
-                    </div>
+            <div class="header-info">
+                <div class="info-pill">
+                    <i class="fa-solid fa-id-badge"></i>
+                    <span>Kasir: <strong id="namaKasirDisplay">-</strong></span>
+                    <button class="btn-switch-kasir" onclick="gantiKasir()" title="Ganti Kasir"><i class="fa-solid fa-rotate"></i></button>
+                </div>
+                <div class="info-pill clock-pill">
+                    <i class="fa-regular fa-clock"></i>
+                    <strong id="jamDisplay">00:00:00</strong>
                 </div>
             </div>
+        </header>
 
-            <!-- Detail: Kartu Debit -->
-            <div class="detail-bayar" id="detailKartuDebit" style="display:none;">
-                <p>💳 Tempelkan atau gesek kartu debit di mesin EDC.</p>
+        <!-- LAYOUT DASHBOARD 2-KOLOM -->
+        <div class="dashboard-grid">
+            
+            <!-- KOLOM KIRI: INPUT & KERANJANG -->
+            <div class="grid-main">
+                
+                <!-- CARD: TAMBAH BARANG -->
+                <div class="card card-form">
+                    <div class="card-title">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <h3>Tambah Barang</h3>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="selectBarang"><i class="fa-solid fa-box-open"></i> Pilih Barang</label>
+                            <select id="selectBarang">
+                                <option value="">-- Pilih Barang --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hargaOtomatis"><i class="fa-solid fa-tag"></i> Harga / Pack</label>
+                            <input type="text" id="hargaOtomatis" readonly placeholder="Rp 0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jumlah"><i class="fa-solid fa-cubes"></i> Qty (Pack)</label>
+                            <select id="jumlah">
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estimasiSubtotal"><i class="fa-solid fa-calculator"></i> Estimasi Subtotal</label>
+                            <input type="text" id="estimasiSubtotal" readonly placeholder="Rp 0">
+                        </div>
+                    </div>
+
+                    <button id="btnTambah" class="btn-primary" onclick="tambahBarang()">
+                        <i class="fa-solid fa-plus"></i> Tambah Ke Keranjang
+                    </button>
+                </div>
+
+                <!-- CARD: TABEL KERANJANG -->
+                <div class="card card-table">
+                    <div class="card-title">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <h3>Keranjang Belanja</h3>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama Barang</th>
+                                    <th>Harga / Pack</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                    <th style="text-align: center;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="list"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="kosong" class="empty-state">
+                        <i class="fa-solid fa-cart-flatbed-suitcases"></i>
+                        <p>Belum ada barang di keranjang</p>
+                    </div>
+                </div>
+
             </div>
-        </div>
 
-        <!-- TOMBOL -->
-        <div class="btn-group">
-            <button onclick="cetakStruk()">🧾 Cetak Struk</button>
-            <button onclick="resetData()">🔄 Reset</button>
+            <!-- KOLOM KANAN: RINGKASAN TOTAL & PEMBAYARAN -->
+            <div class="grid-sidebar">
+                
+                <!-- CARD: TOTAL & DISKON -->
+                <div class="card card-summary">
+                    <div class="card-title">
+                        <i class="fa-solid fa-receipt"></i>
+                        <h3>Ringkasan Transaksi</h3>
+                    </div>
+
+                    <div class="summary-list">
+                        <div class="summary-item">
+                            <span>Subtotal</span>
+                            <strong id="subtotalText">Rp 0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Diskon (10%)</span>
+                            <strong id="diskonText" class="text-discount">Rp 0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>PPN (11%)</span>
+                            <strong id="ppnText">Rp 0</strong>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="total-box">
+                        <span class="total-label">Total Bayar</span>
+                        <span class="total-amount" id="totalText">Rp 0</span>
+                    </div>
+
+                    <div class="discount-badge" id="discountNote">
+                        <i class="fa-solid fa-circle-info"></i> Diskon 10% untuk belanja di atas Rp 100.000
+                    </div>
+                </div>
+
+                <!-- CARD: METODE PEMBAYARAN -->
+                <div class="card card-payment">
+                    <div class="card-title">
+                        <i class="fa-solid fa-wallet"></i>
+                        <h3>Metode Pembayaran</h3>
+                    </div>
+
+                    <div class="payment-options">
+                        <label class="payment-tile">
+                            <input type="radio" name="metodeBayar" value="Tunai" checked onchange="tampilDetailBayar()">
+                            <div class="tile-content">
+                                <i class="fa-solid fa-money-bill-wave"></i>
+                                <span>Tunai</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-tile">
+                            <input type="radio" name="metodeBayar" value="QRIS" onchange="tampilDetailBayar()">
+                            <div class="tile-content">
+                                <i class="fa-solid fa-qrcode"></i>
+                                <span>QRIS</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-tile">
+                            <input type="radio" name="metodeBayar" value="Transfer Bank" onchange="tampilDetailBayar()">
+                            <div class="tile-content">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <span>Transfer</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-tile">
+                            <input type="radio" name="metodeBayar" value="E-Wallet" onchange="tampilDetailBayar()">
+                            <div class="tile-content">
+                                <i class="fa-solid fa-mobile-screen-button"></i>
+                                <span>E-Wallet</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-tile">
+                            <input type="radio" name="metodeBayar" value="Kartu Debit" onchange="tampilDetailBayar()">
+                            <div class="tile-content">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <span>Debit</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- DETAIL PEMBAYARAN -->
+                    <div class="payment-details">
+                        <!-- Detail: Tunai -->
+                        <div class="detail-bayar" id="detailTunai">
+                            <p class="detail-desc"><i class="fa-solid fa-cash-register"></i> Pembayaran langsung di kasir.</p>
+                            <div class="form-group margin-top-sm">
+                                <label for="uangBayar">Uang Bayar (Rp):</label>
+                                <input type="number" id="uangBayar" placeholder="Masukkan jumlah uang" oninput="hitungKembalian()">
+                            </div>
+                            <div class="kembalian-box">
+                                <span>Kembalian:</span>
+                                <strong id="kembalianText">Rp 0</strong>
+                            </div>
+                        </div>
+
+                        <!-- Detail: QRIS -->
+                        <div class="detail-bayar" id="detailQRIS" style="display:none;">
+                            <p class="detail-desc"><i class="fa-solid fa-camera"></i> Scan QR Code berikut:</p>
+                            <div class="qris-wrapper">
+                                <img src="qris.png" alt="QRIS" class="img-bayar">
+                                <span class="qris-caption">QRIS - HIHI SHOP Store</span>
+                            </div>
+                        </div>
+
+                        <!-- Detail: Transfer Bank -->
+                        <div class="detail-bayar" id="detailTransferBank" style="display:none;">
+                            <p class="detail-desc"><i class="fa-solid fa-paper-plane"></i> Transfer ke salah satu rekening:</p>
+                            <div class="rekening-list">
+                                <div class="info-rekening">
+                                    <div class="bank-name"><i class="fa-solid fa-building-columns"></i> Bank BCA</div>
+                                    <div class="rekening-num">082-633-22</div>
+                                    <small>a.n. Ferdy Store</small>
+                                </div>
+                                <div class="info-rekening">
+                                    <div class="bank-name"><div class="bank-icon-bri">BRI</div> Bank BRI</div>
+                                    <div class="rekening-num">0912-0182-3344</div>
+                                    <small>a.n. Ferdy Store</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detail: E-Wallet -->
+                        <div class="detail-bayar" id="detailE-Wallet" style="display:none;">
+                            <p class="detail-desc"><i class="fa-solid fa-wallet"></i> Pilihan Nomor E-Wallet:</p>
+                            <div class="ewallet-list">
+                                <div class="ewallet-item gopay">
+                                    <strong>GoPay</strong>
+                                    <span>0812-3456-7890</span>
+                                </div>
+                                <div class="ewallet-item ovo">
+                                    <strong>OVO</strong>
+                                    <span>0812-3456-7890</span>
+                                </div>
+                                <div class="ewallet-item dana">
+                                    <strong>DANA</strong>
+                                    <span>0812-3456-7890</span>
+                                </div>
+                                <div class="ewallet-item shopeepay">
+                                    <strong>ShopeePay</strong>
+                                    <span>0812-3456-7890</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detail: Kartu Debit -->
+                        <div class="detail-bayar" id="detailKartuDebit" style="display:none;">
+                            <div class="debit-notice">
+                                <i class="fa-solid fa-credit-card fa-2x"></i>
+                                <p>Silakan gesek / tempelkan kartu debit pelanggan pada mesin EDC kasir.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOMBOL AKSI -->
+                    <div class="btn-group">
+                        <button class="btn-action btn-print" onclick="cetakStruk()">
+                            <i class="fa-solid fa-print"></i> Cetak Struk
+                        </button>
+                        <button class="btn-action btn-reset" onclick="resetData()">
+                            <i class="fa-solid fa-arrow-rotate-left"></i> Reset
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
     </div>
 
