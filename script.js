@@ -222,7 +222,7 @@ function cetakStruk() {
 
     let items = data.map(item =>
         `<tr>
-            <td>${item.nama}</td>
+            <td style="word-break: break-word;">${item.nama}</td>
             <td style="text-align:center">${item.jumlah}</td>
             <td style="text-align:right">${rupiah(item.harga)}</td>
             <td style="text-align:right">${rupiah(item.subtotal)}</td>
@@ -233,46 +233,46 @@ function cetakStruk() {
         <div class="struk-wrapper">
             <h2 style="text-align: center; margin-bottom: 5px; font-size: 18px;">🛒 HIHI SHOP</h2>
             <p style="text-align:center; font-size:10px; margin-top:-5px; margin-bottom:10px; color:#666;">Jl. Raya Magersari No 40 Kabupaten Pasuruan JAWA TIMUR</p>
-            <div style="text-align: center; color: #888; font-size: 12px; margin-bottom: 15px;">Struk Pembayaran</div>
+            <div style="text-align: center; color: #888; font-size: 12px; margin-bottom: 12px;">Struk Pembayaran</div>
 
-            <div style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc; padding: 10px 0; margin-bottom: 10px; font-size: 12px;">
-                <p style="margin: 3px 0;"><span style="color: #888;">No. Transaksi:</span> ${noTrx}</p>
-                <p style="margin: 3px 0;"><span style="color: #888;">Kasir:</span> ${namaKasir}</p>
-                <p style="margin: 3px 0;"><span style="color: #888;">Tanggal:</span> ${tanggal}</p>
-                <p style="margin: 3px 0;"><span style="color: #888;">Waktu:</span> ${waktu}</p>
+            <div style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc; padding: 8px 0; margin-bottom: 10px; font-size: 11px;">
+                <p style="margin: 2px 0;"><span style="color: #888;">No. Transaksi:</span> ${noTrx}</p>
+                <p style="margin: 2px 0;"><span style="color: #888;">Kasir:</span> ${namaKasir}</p>
+                <p style="margin: 2px 0;"><span style="color: #888;">Tanggal:</span> ${tanggal}</p>
+                <p style="margin: 2px 0;"><span style="color: #888;">Waktu:</span> ${waktu}</p>
             </div>
 
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 12px;">
+            <table style="width: 100%; table-layout: fixed; border-collapse: collapse; margin-bottom: 10px; font-size: 11px;">
                 <thead>
-                    <tr style="border-bottom: 1px solid #ddd; font-size: 11px; color: #888;">
-                        <th style="text-align: left; padding: 5px 0;">Barang</th>
-                        <th style="text-align: center; padding: 5px 0;">Qty(P)</th>
-                        <th style="text-align: right; padding: 5px 0;">Harga/P</th>
-                        <th style="text-align: right; padding: 5px 0;">Subtotal</th>
+                    <tr style="border-bottom: 1px solid #ddd; font-size: 10px; color: #888;">
+                        <th style="text-align: left; padding: 4px 2px; width: 36%;">Barang</th>
+                        <th style="text-align: center; padding: 4px 2px; width: 16%;">Qty(P)</th>
+                        <th style="text-align: right; padding: 4px 2px; width: 24%;">Harga/P</th>
+                        <th style="text-align: right; padding: 4px 2px; width: 24%;">Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>${items}</tbody>
             </table>
 
-            <div style="border-top: 1px dashed #ccc; padding-top: 10px; font-size: 13px;">
-                <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Subtotal</span><span>${rupiah(total)}</span></p>
-                <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Diskon (10%)</span><span>- ${rupiah(diskon)}</span></p>
-                <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>PPN (11%)</span><span>+ ${rupiah(ppn)}</span></p>
-                <p style="display: flex; justify-content: space-between; margin: 8px 0 3px 0; font-size: 16px; font-weight: bold; border-top: 1px solid #333; padding-top: 8px;"><span>Total Bayar</span><span>${rupiah(totalAkhir)}</span></p>
+            <div style="border-top: 1px dashed #ccc; padding-top: 8px; font-size: 12px;">
+                <p style="display: flex; justify-content: space-between; gap: 8px; margin: 3px 0;"><span>Subtotal</span><span>${rupiah(total)}</span></p>
+                <p style="display: flex; justify-content: space-between; gap: 8px; margin: 3px 0;"><span>Diskon (10%)</span><span>- ${rupiah(diskon)}</span></p>
+                <p style="display: flex; justify-content: space-between; gap: 8px; margin: 3px 0;"><span>PPN (11%)</span><span>+ ${rupiah(ppn)}</span></p>
+                <p style="display: flex; justify-content: space-between; gap: 8px; margin: 8px 0 3px 0; font-size: 15px; font-weight: bold; border-top: 1px solid #333; padding-top: 6px;"><span>Total Bayar</span><span>${rupiah(totalAkhir)}</span></p>
                 ${metodeBayar === 'Tunai' ? `
-                    <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Bayar</span><span>${rupiah(bayar)}</span></p>
-                    <p style="display: flex; justify-content: space-between; margin: 3px 0;"><span>Kembalian</span><span>${rupiah(kembalian > 0 ? kembalian : 0)}</span></p>
+                    <p style="display: flex; justify-content: space-between; gap: 8px; margin: 3px 0;"><span>Bayar</span><span>${rupiah(bayar)}</span></p>
+                    <p style="display: flex; justify-content: space-between; gap: 8px; margin: 3px 0;"><span>Kembalian</span><span>${rupiah(kembalian > 0 ? kembalian : 0)}</span></p>
                 ` : ''}
             </div>
 
-            <div style="border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px; text-align: center; font-size: 13px;">
+            <div style="border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px; text-align: center; font-size: 12px;">
                 Metode Pembayaran: <strong>${metodeBayar}</strong>
                 ${metodeBayar === 'QRIS' ? '<br><img src="qris.png" style="width:100px; height:100px; margin-top:10px; border:1px solid #ddd;">' : ''}
             </div>
 
             <div style="text-align: center; margin-top: 15px; color: #888; font-size: 11px;">
                 <p>Barang yang sudah dibeli tidak dapat dikembalikan.</p>
-                <div style="font-size: 14px; font-weight: 600; color: #333; margin-top: 5px;">Terima Kasih!</div>
+                <div style="font-size: 13px; font-weight: 600; color: #333; margin-top: 5px;">Terima Kasih!</div>
                 <div style="margin-top: 10px;">
                     <img src="qris.png" style="width:50px; height:50px; opacity:0.5;">
                     <p style="font-size: 9px; color: #aaa;">Scan untuk bukti transaksi digital</p>

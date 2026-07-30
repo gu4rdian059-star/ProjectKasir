@@ -378,11 +378,42 @@ hr {
 
 /* ===== MODAL STRUK & PRINT STYLE ===== */
 .modal-struk-box {
-    max-width: 380px !important;
-    width: 90% !important;
+    max-width: 360px !important;
+    width: 92% !important;
     max-height: 85vh;
+    padding: 16px !important;
+    box-sizing: border-box !important;
     overflow-y: auto;
+    overflow-x: hidden;
     text-align: left;
+}
+
+.struk-wrapper {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: 12px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.struk-wrapper table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    margin: 8px 0 !important;
+    min-width: 0 !important;
+}
+
+.struk-wrapper th, 
+.struk-wrapper td {
+    padding: 4px 2px !important;
+    font-size: 11px !important;
+    word-break: break-word;
+}
+
+.struk-wrapper p {
+    word-break: break-word;
 }
 
 @media print {
@@ -404,7 +435,7 @@ hr {
     .modal-struk-box {
         border: none;
         box-shadow: none;
-        padding: 0;
+        padding: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
     }
