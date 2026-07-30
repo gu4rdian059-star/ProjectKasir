@@ -85,10 +85,6 @@ function mulaiSesi(nama) {
     document.getElementById("modalKasir").classList.add("hidden");
 }
 
-function gantiKasir() {
-    document.getElementById("modalKasir").classList.remove("hidden");
-}
-
 // ===== JAM =====
 function updateJam() {
     const now = new Date();
@@ -153,11 +149,11 @@ function tampilkan() {
         total += item.subtotal;
         list.innerHTML += `
         <tr>
-            <td><strong>${item.nama}</strong></td>
+            <td>${item.nama}</td>
             <td>${rupiah(item.harga)}</td>
             <td>${item.jumlah}</td>
-            <td><strong>${rupiah(item.subtotal)}</strong></td>
-            <td style="text-align: center;"><button onclick="hapus(${index})"><i class="fa-solid fa-trash"></i> Hapus</button></td>
+            <td>${rupiah(item.subtotal)}</td>
+            <td><button onclick="hapus(${index})">Hapus</button></td>
         </tr>`;
     });
 
@@ -178,15 +174,11 @@ function tampilkan() {
     if (kembalianText) kembalianText.textContent = "Rp 0";
 
     if (diskon > 0) {
-        discountNote.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Diskon 10% Aktif!</strong> Total di atas Rp 100.000';
-        discountNote.style.color = "#10B981";
-        discountNote.style.borderColor = "#A7F3D0";
-        discountNote.style.backgroundColor = "#ECFDF5";
+        discountNote.textContent = "✅ Diskon 10% aktif!";
+        discountNote.style.color = "green";
     } else {
-        discountNote.innerHTML = '<i class="fa-solid fa-circle-info"></i> Diskon 10% untuk belanja di atas Rp 100.000';
-        discountNote.style.color = "var(--text-muted)";
-        discountNote.style.borderColor = "var(--border-color)";
-        discountNote.style.backgroundColor = "var(--bg-muted)";
+        discountNote.textContent = "*Diskon 10% untuk belanja di atas Rp 100.000";
+        discountNote.style.color = "#999";
     }
 }
 
